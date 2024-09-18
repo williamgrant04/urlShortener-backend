@@ -3,9 +3,9 @@ class UrlsController < ApplicationController
 
   def create
     url = Url.new()
-    url.uuid = SecureRandom.urlsafe_base64(10)
-    url.shortened_url = params[:url]
-    
+    url.identifier = SecureRandom.urlsafe_base64(10)
+    url.source_url = params[:url]
+
     if url.save
       render json: url, status: 200
     else
