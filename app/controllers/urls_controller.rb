@@ -17,6 +17,8 @@ class UrlsController < ApplicationController
 
   def show
     url = Url.find_by(identifier: params[:identifier])
+    url.click_count += 1
+    url.save!
 
     if url
       render json: url, status: 200
