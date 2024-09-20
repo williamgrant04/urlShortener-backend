@@ -1,12 +1,9 @@
 class UrlsController < ApplicationController
-  require "securerandom"
-
   def create
     url = Url.new()
-    url.identifier = SecureRandom.urlsafe_base64(6)
     url.source_url = params[:url]
 
-    # TODO: Add a check to see if the URL is valid, if not return a 400 status code with an error message "Invalid URL" or something
+    return render json: url.errors, status: 400 unless url.valid?
 
     if url.save
       render json: url, status: 200
